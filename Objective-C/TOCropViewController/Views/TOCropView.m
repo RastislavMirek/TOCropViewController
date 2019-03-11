@@ -113,6 +113,43 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 @implementation TOCropView
 
+@synthesize blurTintColor = _blurTintColor;
+
+- (void) setOverlayColor:(UIColor *)overlayColor {
+    self.overlayView.backgroundColor = overlayColor;
+}
+
+- (UIColor *) overlayColor {
+    return self.overlayView.backgroundColor;
+}
+
+// depends on implemetation detail
+- (UIView *) blurTintView
+{
+    if (self.translucencyView != nil && self.translucencyView.subviews.count > 1) {
+        return self.translucencyView.subviews[1];
+    }
+    return nil;
+}
+
+- (void) setBlurTintColor:(UIColor *)blurTintColor {
+    _blurTintColor = blurTintColor;
+    if ([self blurTintView] != nil) {
+        [self blurTintView].backgroundColor = blurTintColor;
+    }
+}
+
+- (UIColor *) blurTintColor {
+    return _blurTintColor;
+}
+
+- (void) refreshBlurTintColor
+{
+    if (_blurTintColor != nil) {
+        self.blurTintColor = _blurTintColor;
+    }
+}
+
 - (instancetype)initWithImage:(UIImage *)image
 {
     return [self initWithCroppingStyle:TOCropViewCroppingStyleDefault image:image];
@@ -755,6 +792,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     else {
         [(UIVisualEffectView *)self.translucencyView setEffect:visible ? self.translucencyEffect : nil];
     }
+    [self refreshBlurTintColor];
 }
 
 - (void)updateToImageCropFrame:(CGRect)imageCropframe
@@ -1250,7 +1288,15 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     
     [UIView animateKeyframesWithDuration:duration delay:delay options:0 animations:^{
         [self toggleTranslucencyViewVisible:!editing];
-    } completion:nil];
+    } completion:^(BOOL complete) {
+        [self refreshBlurTintColor];
+        // workearound for blurTintColor being overriden by some "after completion" frame animation...
+        [UIView animateWithDuration:0 delay:0 options:0 animations:^{
+            [self refreshBlurTintColor];
+        } completion:^(BOOL complete) {
+            [self refreshBlurTintColor];
+        }];
+    }];
 }
 
 - (void)moveCroppedContentToCenterAnimated:(BOOL)animated

@@ -76,6 +76,8 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
 
 @implementation TOCropViewController
 
+@synthesize toolbarHeight=_toolbarHeight;
+
 - (instancetype)initWithCroppingStyle:(TOCropViewCroppingStyle)style image:(UIImage *)image
 {
     NSParameterAssert(image);
@@ -98,6 +100,7 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
         // Default initial behaviour
         _aspectRatioPreset = TOCropViewControllerAspectRatioPresetOriginal;
         _toolbarPosition = TOCropViewControllerToolbarPositionBottom;
+        _toolbarHeight = kTOCropViewControllerToolbarHeight;
     }
 	
     return self;
@@ -279,7 +282,7 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     else {
         frame.origin.x = 0.0f;
         frame.size.width = CGRectGetWidth(self.view.bounds);
-        frame.size.height = self.toolbarPosition == TOCropViewControllerToolbarPositionHidden ? 0.0f : kTOCropViewControllerToolbarHeight;
+        frame.size.height = self.toolbarPosition == TOCropViewControllerToolbarPositionHidden ? 0.0f : _toolbarHeight;
 
         if (self.toolbarPosition == TOCropViewControllerToolbarPositionBottom) {
             frame.origin.y = CGRectGetHeight(self.view.bounds) - (frame.size.height + insets.bottom);
@@ -312,7 +315,7 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
 
     // Horizontal layout (eg landscape)
     if (!verticalLayout) {
-        frame.origin.x = kTOCropViewControllerToolbarHeight + insets.left;
+        frame.origin.x = _toolbarHeight + insets.left;
         frame.size.width = CGRectGetWidth(bounds) - frame.origin.x;
 		frame.size.height = CGRectGetHeight(bounds);
     }
@@ -322,9 +325,9 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
 
         // Set Y and adjust for height
         if (self.toolbarPosition == TOCropViewControllerToolbarPositionBottom) {
-            frame.size.height -= (insets.bottom + kTOCropViewControllerToolbarHeight);
+            frame.size.height -= (insets.bottom + _toolbarHeight);
         } else if (self.toolbarPosition == TOCropViewControllerToolbarPositionTop) {
-			frame.origin.y = kTOCropViewControllerToolbarHeight + insets.top;
+			frame.origin.y = _toolbarHeight + insets.top;
             frame.size.height -= frame.origin.y;
         }
     }

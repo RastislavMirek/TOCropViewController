@@ -101,6 +101,8 @@ typedef NS_ENUM(NSInteger, TOCropViewControllerToolbarPosition) {
 
 @interface TOCropViewController : UIViewController
 
+@property (nonatomic, readwrite, assign) CGFloat toolbarHeight; // height of toolbar when not hidden
+
 /**
  The original, uncropped image that was passed to this controller.
  */

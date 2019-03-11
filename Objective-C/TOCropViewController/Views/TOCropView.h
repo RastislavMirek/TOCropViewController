@@ -40,10 +40,9 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
 
 @interface TOCropView : UIView
 
-/**
- The image that the crop view is displaying. This cannot be changed once the crop view is instantiated.
- */
-@property (nonnull, nonatomic, strong, readonly) UIImage *image;
+@property (nonnull, nonatomic, strong, readwrite) UIColor *blurTintColor;
+
+@property (nonnull, nonatomic, strong, readwrite) UIColor *overlayColor;
 
 /**
  The cropping style of the crop view (eg, rectangular or circular)

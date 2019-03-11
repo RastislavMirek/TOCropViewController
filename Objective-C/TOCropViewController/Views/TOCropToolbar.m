@@ -54,9 +54,15 @@
     return self;
 }
 
+- (void) setBackgroundColor: (UIColor *) newBackround {
+    super.backgroundColor = newBackround;
+    self.backgroundView.backgroundColor = newBackround;
+}
+
 - (void)setup {
+    self.backgroundColor = [UIColor colorWithWhite:0.12f alpha:1.0f];
     self.backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.12f alpha:1.0f];
+    self.backgroundView.backgroundColor = self.backgroundColor;
     [self addSubview:self.backgroundView];
     
     // On iOS 9, we can use the new layout features to determine whether we're in an 'Arabic' style language mode

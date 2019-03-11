@@ -92,6 +92,11 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
      The original, uncropped image that was passed to this controller.
      */
     public var image: UIImage { return self.toCropViewController.image }
+
+    public var toolbarHeight: CGFloat {
+        get { return toCropViewController.toolbarHeight }
+        set { toCropViewController.toolbarHeight = newValue }
+    }
     
     /**
      The view controller's delegate that will receive the resulting
