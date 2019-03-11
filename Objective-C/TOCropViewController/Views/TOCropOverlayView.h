@@ -30,6 +30,10 @@
 /** Add/Remove the interior horizontal grid lines. */
 @property (nonatomic, assign) BOOL displayHorizontalGridLines;
 
+@property (nonnull, nonatomic, strong, readwrite) UIColor *frameEdgesColor;
+
+@property (nonnull, nonatomic, strong, readwrite) UIColor *frameCornersColor;
+
 /** Add/Remove the interior vertical grid lines. */
 @property (nonatomic, assign) BOOL displayVerticalGridLines;
 

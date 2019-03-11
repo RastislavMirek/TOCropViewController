@@ -44,6 +44,10 @@ typedef NS_ENUM(NSInteger, TOCropViewCroppingStyle) {
 
 @property (nonnull, nonatomic, strong, readwrite) UIColor *overlayColor;
 
+@property (nonnull, nonatomic, strong, readwrite) UIColor *frameEdgesColor;
+
+@property (nonnull, nonatomic, strong, readwrite) UIColor *frameCornersColor;
+
 /**
  The cropping style of the crop view (eg, rectangular or circular)
  */

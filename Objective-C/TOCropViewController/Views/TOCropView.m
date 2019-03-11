@@ -123,6 +123,22 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     return self.overlayView.backgroundColor;
 }
 
+- (void)setFrameCornersColor:(UIColor *)frameCornersColor {
+    self.gridOverlayView.frameCornersColor = frameCornersColor;
+}
+
+-(UIColor *)frameCornersColor {
+    return self.gridOverlayView.frameCornersColor;
+}
+
+- (void)setFrameEdgesColor:(UIColor *)frameEdgesColor {
+    self.gridOverlayView.frameEdgesColor = frameEdgesColor;
+}
+
+- (UIColor *)frameEdgesColor {
+    return self.gridOverlayView.frameEdgesColor;
+}
+
 // depends on implemetation detail
 - (UIView *) blurTintView
 {

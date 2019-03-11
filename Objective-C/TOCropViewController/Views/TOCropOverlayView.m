@@ -40,6 +40,9 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 
 @implementation TOCropOverlayView
 
+@synthesize frameEdgesColor = _frameEdgesColor;
+@synthesize frameCornersColor = _frameCornersColor;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -48,6 +51,26 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }
     
     return self;
+}
+
+- (void)setFrameEdgesColor:(UIColor *)frameEdgesColor {
+    _frameEdgesColor = frameEdgesColor;
+    [self recolorViewsArray:self.outerLineViews color:frameEdgesColor];
+}
+
+-(void)setFrameCornersColor:(UIColor *)frameCornersColor {
+    _frameCornersColor = frameCornersColor;
+    NSArray* nestedArray = @[self.topLeftLineViews, self.bottomLeftLineViews, self.bottomRightLineViews, self.topRightLineViews];
+    for (NSInteger i = 0; i < nestedArray.count; i++) {
+        [self recolorViewsArray:nestedArray[i] color:frameCornersColor];
+    }
+}
+
+- (void)recolorViewsArray:(NSArray *)viewsArray color: (UIColor *) color {
+    for (NSInteger i = 0; i < viewsArray.count; i++) {
+        UIView* view = viewsArray[i];
+        view.backgroundColor = color;
+    }
 }
 
 - (void)setup
